@@ -85,7 +85,7 @@ function game() {
         || (computerSelection === "Paper" && playerSelectionFormatted === "Rock")
         || (computerSelection === "Scissors" && playerSelectionFormatted === "Paper")
         ) { let result = `You lose! ${computerSelection} beats ${playerSelectionFormatted}!`;
-            computerWinCount = computerWinCount++; //increment counter
+            computerWinCount++; //increment counter
             alert(result);
             console.log(result);
             return result;
@@ -96,7 +96,7 @@ function game() {
             || (computerSelection === "Rock" && playerSelectionFormatted === "Paper")
             || (computerSelection === "Paper" && playerSelectionFormatted === "Scissors")
         ) { let result =  `You win! ${playerSelectionFormatted} beats ${computerSelection}!`;
-            playerWinCount = playerWinCount++; //increment counter
+            playerWinCount++; //increment counter
             alert(result);
             console.log(result);
             return result;
@@ -110,12 +110,15 @@ function game() {
         if (roundCount === 5) {
         if (playerWinCount === computerWinCount) {
             let result = `It's a tie! You both won ${playerWinCount} times!`;
+            alert(result);
             console.log(result);
         } else if (playerWinCount > computerWinCount) {
             let result = `You won! You beat the computer ${playerWinCount} to ${computerWinCount}!`;
+            alert(result);
             console.log(result);
         } else {
             let result = `You lost! The computer beat you ${computerWinCount} to ${playerWinCount}!`;
+            alert(result);
             console.log(result);
         }}
             
