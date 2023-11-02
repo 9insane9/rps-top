@@ -60,7 +60,7 @@ function game() {
         return result;
     }
     
-    //note to self not to forget quotes around arguments when calling, unless using prompt
+    //note to self not to forget quotes around arguments when calling, unless using prompt (example of bad comment)
 
     //gameround function
     function gameRound(playerSelection = prompt("Rock, paper or scissors?"), computerSelection = getComputerChoice()) {
@@ -90,7 +90,7 @@ function game() {
             console.log(result);
             return result;
     
-        //player win check
+        //player win check //just use else and no condition becaause if player didnt lose and it wasnt a tie, there are no other options
         } else if (
             (computerSelection === "Scissors" && playerSelectionFormatted === "Rock")
             || (computerSelection === "Rock" && playerSelectionFormatted === "Paper")
