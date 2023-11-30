@@ -1,126 +1,99 @@
-// //generate random computer option
-// function getComputerChoice() {
-//     let computerOptions = ["Rock", "Paper", "Scissors"];
-//     let randomIndex = Math.floor(Math.random() * computerOptions.length);
-//     let result = (computerOptions[randomIndex]);
-//     return result;
-// }
+let playerWinCount = 0;
+let computerWinCount = 0;
+let roundCount = 0;
 
-// //note to self not to forget quotes around arguments when calling, unless using prompt
-// function gameRound(playerSelection = prompt("Rock, paper or scissors?"), computerSelection = getComputerChoice()) {
-    
-//    //capitalize first letter of player input to match format
-//     playerSelectionFormatted = 
-//     playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1).toLowerCase();
+let buttons = document.querySelector(".buttons");
+let playerSelection = "";
+
+let message = document.querySelector(".message");
+let playerScore = document.querySelector(".player-score");
+let computerScore = document.querySelector(".computer-score");
+
 
     
-//     ////check conditions
-
-//     //tie check
-//     if (playerSelectionFormatted === computerSelection) {
-//         let result = `It's a tie! You both picked ${computerSelection}!`;
-//         return result;
-//         console.log(result);
-
-//     //player lose check
-//     } else if (
-//     (computerSelection === "Rock" && playerSelectionFormatted === "Scissors")
-//     || (computerSelection === "Paper" && playerSelectionFormatted === "Rock")
-//     || (computerSelection === "Scissors" && playerSelectionFormatted === "Paper")
-//     ) { let result = `You lose! ${computerSelection} beats ${playerSelectionFormatted}!`;
-//         return result;
-//         computerWinCount = ++computerWinCount; //increment counter
-//         console.log(result);
-
-//     //player win check
-//     } else if (
-//         (computerSelection === "Scissors" && playerSelectionFormatted === "Rock")
-//         || (computerSelection === "Rock" && playerSelectionFormatted === "Paper")
-//         || (computerSelection === "Paper" && playerSelectionFormatted === "Scissors")
-//     ) { let result =  `You win! ${playerSelectionFormatted} beats ${computerSelection}!`;
-//         return result;
-//         playerWinCount = ++playerWinCount; //increment counter
-//         console.log(result);
-//     }
-//     }
-
-/////above is code for one round
-
-
-    ////game of 5 rounds 
-
-function game() {
-    let playerWinCount = 0;
-    let computerWinCount = 0;
     //generate random choice for the computer
-    function getComputerChoice() {
-        let computerOptions = ["Rock", "Paper", "Scissors"];
-        let randomIndex = Math.floor(Math.random() * computerOptions.length);
-        let result = (computerOptions[randomIndex]);
-        return result;
-    }
-    
-    //note to self not to forget quotes around arguments when calling, unless using prompt (example of bad comment)
+function getComputerChoice() {
+    let computerOptions = ["Rock", "Paper", "Scissors"];
+    let randomIndex = Math.floor(Math.random() * computerOptions.length);
+    let result = (computerOptions[randomIndex]);
+    return result;
+};
 
     //gameround function
-    function gameRound(playerSelection = prompt("Rock, paper or scissors?"), computerSelection = getComputerChoice()) {
-        
-       //capitalize first letter of player input to match format
-        playerSelectionFormatted = 
-        playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1).toLowerCase();
-    
-        
-        ////check conditions
-    
-        //tie check
-        if (playerSelectionFormatted === computerSelection) {
-            let result = `It's a tie! You both picked ${computerSelection}!`;
-            alert(result);
-            console.log(result);
-            return result;
-    
-        //player lose check
-        } else if (
-        (computerSelection === "Rock" && playerSelectionFormatted === "Scissors")
-        || (computerSelection === "Paper" && playerSelectionFormatted === "Rock")
-        || (computerSelection === "Scissors" && playerSelectionFormatted === "Paper")
-        ) { let result = `You lose! ${computerSelection} beats ${playerSelectionFormatted}!`;
-            computerWinCount++; //increment counter
-            alert(result);
-            console.log(result);
-            return result;
-    
-        //player win check //just use else and no condition becaause if player didnt lose and it wasnt a tie, there are no other options
-        } else if (
-            (computerSelection === "Scissors" && playerSelectionFormatted === "Rock")
-            || (computerSelection === "Rock" && playerSelectionFormatted === "Paper")
-            || (computerSelection === "Paper" && playerSelectionFormatted === "Scissors")
-        ) { let result =  `You win! ${playerSelectionFormatted} beats ${computerSelection}!`;
-            playerWinCount++; //increment counter
-            alert(result);
-            console.log(result);
-            return result;
-        }
-        }
-        for (roundCount = 0;//game loop of 5 rounds
-            roundCount < 5;
-            ++roundCount) {gameRound()}
+function gameRound(playerSelection, computerSelection = getComputerChoice()) {
 
-        ////after 5 games, who won?
-        if (roundCount === 5) {
+    console.log(computerSelection);
+    let result;
+
+    //tie check
+    if (playerSelection === computerSelection) {
+        result = `It's a tie! You both picked ${computerSelection}!`;
+        playerSelection = "";//reset
+
+    //player lose check
+    } else if (
+    (computerSelection === "Rock" && playerSelection === "Scissors")
+    || (computerSelection === "Paper" && playerSelection === "Rock")
+    || (computerSelection === "Scissors" && playerSelection === "Paper")
+    ) { result = `You lose! ${computerSelection} beats ${playerSelection}!`;
+        computerWinCount++; //increment counter
+        playerSelection = "";//reset
+
+    //player win check
+    } else if (
+        (computerSelection === "Scissors" && playerSelection === "Rock")
+        || (computerSelection === "Rock" && playerSelection === "Paper")
+        || (computerSelection === "Paper" && playerSelection === "Scissors")
+    ) { result =  `You win! ${playerSelection} beats ${computerSelection}!`;
+        playerWinCount++; //increment counter
+        playerSelection = "";//reset
+    }
+
+    roundCount++;
+    message.textContent = result;
+    playerScore.textContent = `Your score: ${playerWinCount}`;
+    computerScore.textContent = `Computer score: ${computerWinCount}`;
+    endScoring();
+
+};
+
+function endScoring () {
+    if (roundCount >= 5) {
+        let finalResult;
         if (playerWinCount === computerWinCount) {
-            let result = `It's a tie! You both won ${playerWinCount} times!`;
-            alert(result);
-            console.log(result);
+            finalResult = `It's a tie game! You both won ${playerWinCount} times!`;
         } else if (playerWinCount > computerWinCount) {
-            let result = `You won! You beat the computer ${playerWinCount} to ${computerWinCount}!`;
-            alert(result);
-            console.log(result);
+            finalResult = `You won the game! You beat the computer ${playerWinCount} to ${computerWinCount}!`;
         } else {
-            let result = `You lost! The computer beat you ${computerWinCount} to ${playerWinCount}!`;
-            alert(result);
-            console.log(result);
-        }}
-            
-         }
-    
+            finalResult = `You lost the game! The computer beat you ${computerWinCount} to ${playerWinCount}!`;
+        }
+
+    message.textContent +="\n\n" + `${finalResult}`;
+
+    console.log(message.textContent)
+
+    }
+}; 
+
+buttons.addEventListener('click', (event) => {
+    let clickTarget = event.target;
+
+    switch (clickTarget.getAttribute("class")) {
+        case 'rock':
+            console.log("Rock chosen!");
+            playerSelection = "Rock";
+            break;
+        case 'paper':
+            console.log("Paper chosen!");
+            playerSelection = "Paper";
+            break;
+        case 'scissors':
+            console.log("Scissors chosen!");
+            playerSelection = "Scissors";
+            break;
+    }
+
+    if (playerSelection !== "" && roundCount < 5) {
+        gameRound(playerSelection, computerSelection = getComputerChoice());
+    }
+});
